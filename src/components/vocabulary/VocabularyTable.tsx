@@ -1,6 +1,6 @@
 "use client";
 
-import { KeyboardEvent, useEffect, useRef } from "react";
+import { KeyboardEvent } from "react";
 
 import { VocabularySheetRow } from "@/types/vocabulary";
 
@@ -15,8 +15,6 @@ interface VocabularyTableProps {
   onSpeakRussian: (word: string) => void;
 }
 
-const AUTO_COMMIT_DELAY = 650;
-
 export function VocabularyTable({
   rows,
   onInputChange,
@@ -24,34 +22,7 @@ export function VocabularyTable({
   onSpeakEnglish,
   onSpeakRussian,
 }: VocabularyTableProps) {
-  const timersRef = useRef<Record<string, number>>({});
-
-  useEffect(() => {
-    const timers = timersRef.current;
-    return () => {
-      Object.values(timers).forEach((timerId) => {
-        window.clearTimeout(timerId);
-      });
-    };
-  }, []);
-
-  const scheduleAutoCommit = (rowId: string) => {
-    if (timersRef.current[rowId]) {
-      window.clearTimeout(timersRef.current[rowId]);
-    }
-
-    timersRef.current[rowId] = window.setTimeout(() => {
-      onCommitRow(rowId);
-      delete timersRef.current[rowId];
-    }, AUTO_COMMIT_DELAY);
-  };
-
-  const flushCommit = (rowId: string) => {
-    if (timersRef.current[rowId]) {
-      window.clearTimeout(timersRef.current[rowId]);
-      delete timersRef.current[rowId];
-    }
-
+  const commitRow = (rowId: string) => {
     onCommitRow(rowId);
   };
 
@@ -61,7 +32,7 @@ export function VocabularyTable({
     }
 
     event.preventDefault();
-    flushCommit(rowId);
+    commitRow(rowId);
   };
 
   return (
@@ -93,11 +64,10 @@ export function VocabularyTable({
                     }`}
                     disabled={row.status === "loading"}
                     onBlur={() => {
-                      flushCommit(row.id);
+                      commitRow(row.id);
                     }}
                     onChange={(event) => {
                       onInputChange(row.id, event.target.value);
-                      scheduleAutoCommit(row.id);
                     }}
                     onKeyDown={(event) => {
                       handleEnter(event, row.id);

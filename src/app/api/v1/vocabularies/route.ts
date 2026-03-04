@@ -6,6 +6,7 @@ const getBackendBaseUrl = () => {
   const configured =
     process.env.BACKEND_INTERNAL_URL ??
     process.env.API_BASE_URL ??
+    process.env.NEXT_PUBLIC_API_BASE_URL ??
     DEFAULT_BACKEND_URL;
 
   return configured.replace(/\/+$/, "");
