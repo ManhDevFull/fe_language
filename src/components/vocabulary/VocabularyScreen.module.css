@@ -1,0 +1,135 @@
+.shell {
+  display: flex;
+  justify-content: center;
+  min-height: 100dvh;
+  padding: 1rem;
+}
+
+.panel {
+  width: min(100%, 1200px);
+  border: 1px solid color-mix(in srgb, var(--accent) 45%, transparent);
+  border-radius: 16px;
+  padding: 0.8rem;
+  background:
+    linear-gradient(132deg, rgb(6 15 9 / 92%), rgb(8 19 16 / 92%)),
+    radial-gradient(circle at 12% 8%, rgb(43 113 70 / 34%), transparent 45%),
+    radial-gradient(circle at 92% 2%, rgb(24 126 113 / 27%), transparent 44%);
+  box-shadow:
+    0 0 0 1px rgb(35 92 57 / 20%),
+    0 24px 56px rgb(0 0 0 / 42%);
+}
+
+.tableWrapper {
+  overflow-x: auto;
+  border: 1px solid rgb(64 144 90 / 28%);
+  border-radius: 12px;
+}
+
+.table {
+  width: 100%;
+  min-width: 980px;
+  border-collapse: collapse;
+  font-size: 0.85rem;
+}
+
+.table thead th {
+  position: sticky;
+  top: 0;
+  z-index: 2;
+  text-align: left;
+  padding: 0.74rem 0.62rem;
+  border-bottom: 1px solid rgb(63 123 83 / 36%);
+  background: rgb(7 15 10 / 95%);
+  color: var(--accent-2);
+  font-family: var(--font-head);
+  letter-spacing: 0.04em;
+}
+
+.table tbody td {
+  vertical-align: top;
+  padding: 0.62rem;
+  border-right: 1px solid rgb(35 71 49 / 46%);
+  border-bottom: 1px solid rgb(36 75 52 / 42%);
+  color: var(--ink-200);
+  white-space: nowrap;
+}
+
+.table tbody tr:nth-child(even) {
+  background: rgb(4 11 7 / 38%);
+}
+
+.table tbody tr:hover {
+  background: rgb(17 33 21 / 52%);
+}
+
+.wordInput {
+  width: min(100%, 260px);
+  border: 1px solid rgb(80 162 108 / 44%);
+  border-radius: 9px;
+  padding: 0.56rem 0.62rem;
+  background: rgb(2 10 6 / 67%);
+  color: var(--ink-100);
+  outline: none;
+  transition:
+    border-color 140ms ease,
+    box-shadow 140ms ease;
+}
+
+.wordInput:focus {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px rgb(81 230 128 / 16%);
+}
+
+.wordInput:disabled {
+  opacity: 0.8;
+  cursor: wait;
+}
+
+.inputError {
+  border-color: rgb(222 100 111 / 62%);
+}
+
+.mutedCell {
+  color: color-mix(in srgb, var(--ink-200) 84%, #ffffff 16%);
+}
+
+.listenGroup {
+  display: flex;
+  gap: 0.4rem;
+}
+
+.listenButton {
+  border: 1px solid rgb(95 210 130 / 44%);
+  background: rgb(5 17 10 / 82%);
+  color: var(--ink-100);
+  border-radius: 8px;
+  min-width: 44px;
+  padding: 0.35rem 0.5rem;
+  font-size: 0.75rem;
+  cursor: pointer;
+  transition:
+    transform 120ms ease,
+    border-color 120ms ease,
+    background-color 120ms ease;
+}
+
+.listenButton:hover:not(:disabled) {
+  transform: translateY(-1px);
+  border-color: var(--accent);
+  background: rgb(11 34 19 / 86%);
+}
+
+.listenButton:disabled {
+  cursor: not-allowed;
+  opacity: 0.36;
+}
+
+@media (min-width: 900px) {
+  .shell {
+    padding: 2rem;
+  }
+
+  .panel {
+    padding: 1rem;
+  }
+}
